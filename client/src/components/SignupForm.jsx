@@ -42,12 +42,12 @@ const SignupForm = () => {
     }
 
     try {
-      // use addUser mutation to create new user
+      // use createUser mutation to create new user
       const { data } = await createUser({
         variables: { ...userFormData },
       });
       console.log(data);
-      Auth.login(data.addUser.token);
+      Auth.login(data.createUser.token);
     } catch {
       console.error(error);
       setShowAlert(true);
