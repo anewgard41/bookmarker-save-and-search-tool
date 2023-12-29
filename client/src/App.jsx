@@ -1,13 +1,13 @@
 import './App.css';
 import { Outlet } from 'react-router-dom';
-import { ApolloClient, ApolloProvider, InMemoryCache, HttpLink } from '@apollo/client';
+import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 import Navbar from './components/Navbar';
 
 // graphQL endpoint for Apollo Client
-const httpLink = new HttpLink({
-  uri: 'http://localhost:4000/graphql',
+const httpLink = createHttpLink({
+  uri: '/graphql',
 });
 
 // middleware to set the token to the auth header

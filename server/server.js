@@ -14,9 +14,7 @@ const { typeDefs, resolvers } = require('./schemas');
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: expressMiddleware,
 });
-
 
 const startApolloServer = async () => {
   await server.start();

@@ -16,7 +16,7 @@ const SignupForm = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   // useMutation hook to execute ADD_USER mutation
-  const [createUser, { error }] = useMutation(ADD_USER);
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   useEffect(() => {
     if (error) {
@@ -42,15 +42,14 @@ const SignupForm = () => {
     }
 
     try {
-      // use createUser mutation to create new user
-      const { data } = await createUser({
+      // use addUser mutation to create new user
+      const { data } = await addUser({
         variables: { ...userFormData },
       });
       console.log(data);
-      Auth.login(data.createUser.token);
-    } catch {
+      Auth.login(data.addUser.token);
+    } catch (error) {
       console.error(error);
-      setShowAlert(true);
     }
 
     setUserFormData({
