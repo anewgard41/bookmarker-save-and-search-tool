@@ -12,7 +12,9 @@ const httpLink = createHttpLink({
 
 // middleware to set the token to the auth header
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('token');
+  // get the token from localStorage 
+  const token = localStorage.getItem('id_token');
+  // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
@@ -23,8 +25,8 @@ const authLink = setContext((_, { headers }) => {
 
 // Apollo Client instance that executes authLink before httpLink
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
   link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
 });
 
 function App() {
