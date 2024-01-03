@@ -68,24 +68,29 @@ const SearchBooks = () => {
   const handleSaveBook = async (bookId) => {
     // find the book in `searchedBooks` state by the matching id
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
-
+  
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-
+  
     if (!token) {
       return false;
     }
-
+  
     try {
+      // Use $input as the variable name
       const { data } = await saveBook({
-        variables: { bookData: { ...bookToSave } },
+        variables: { input: { ...bookToSave } },
       });
       console.log(savedBookIds);
+      console.log(error);
+  
+      // Get the updated user data from the server response
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
       console.error(err);
     }
   };
+  
   return (
     <>
       <div className="text-light bg-dark p-5">

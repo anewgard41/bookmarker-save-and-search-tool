@@ -9,7 +9,7 @@ const resolvers = {
         if (context.user) {
             const userData = await User.findOne({ _id: context.user._id })
             .select('-__v -password')
-            .populate('books');
+            .populate('savedBooks');
     
             return userData;
         }
@@ -47,11 +47,11 @@ const resolvers = {
         },
     
         // save a book to a user's `savedBooks` field by adding it to the set (to prevent duplicates)
-        saveBook: async (parent, { bookData }, context) => {
+        saveBook: async (parent, { input }, context) => {
         if (context.user) {
             const updatedUser = await User.findByIdAndUpdate(
             { _id: context.user._id },
-            { $addToSet: { savedBooks: bookData } },
+            { $addToSet: { savedBooks: input } },
             { new: true, runValidators: true }
             );
     
